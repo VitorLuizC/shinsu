@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useRef } from "react";
 import useIdentify from '../../hooks/useIdentify';
-import LayerContext from "./CanvasContext";
+import CanvasContext from "./CanvasContext";
 
 type Props = {
   children: ReactNode;
@@ -31,17 +31,17 @@ function Canvas({ children }: Props) {
 
     // `!` was used because it will not be `null` when effect is executed.
     containerRef.current.prepend(canvasRef.current!);
-  }, [])
+  }, []);
 
   return (
-    <LayerContext.Provider value={{
+    <CanvasContext.Provider value={{
       canvas: canvasRef.current,
       context: contextRef.current,
     }}>
       <div className="Canvas" ref={containerRef}>
         {children}
       </div>
-    </LayerContext.Provider>
+    </CanvasContext.Provider>
   )
 }
 
