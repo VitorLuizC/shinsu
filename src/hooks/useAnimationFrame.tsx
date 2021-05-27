@@ -17,11 +17,7 @@ function useAnimationFrame(callback: FrameRequestCallback) {
 
     run(window.performance.now());
 
-    return () => {
-      if (!handle) return;
-
-      window.cancelAnimationFrame(handle);
-    };
+    return () => window.cancelAnimationFrame(handle);
   }, []);
 }
 
