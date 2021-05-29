@@ -19,7 +19,7 @@ function fetchSource(uri: string, type: 'video'): Promise<HTMLVideoElement>;
 function fetchSource(uri: string, type: string): Promise<Source> {
   const source = createSource(type);
 
-  return new Promise((resolve, reject) => {
+  return new Promise<Source>((resolve, reject) => {
     const onLoad = () => {
       removeListeners();
       resolve(source);
