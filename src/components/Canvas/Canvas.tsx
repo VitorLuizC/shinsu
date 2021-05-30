@@ -20,7 +20,10 @@ function Canvas({ children }: Props) {
   }
 
   if (!contextRef.current) {
-    contextRef.current = canvasRef.current.getContext('2d');
+    contextRef.current = canvasRef.current.getContext('2d', {
+      alpha: true,
+      desynchronized: false,
+    });
 
     if (!contextRef.current)
       throw new Error('Couldn\'t get canvas\' context.');
