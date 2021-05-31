@@ -4,9 +4,11 @@ import CanvasContext from "./CanvasContext";
 
 type Props = {
   children: ReactNode;
+  width?: number;
+  height?: number;
 };
 
-function Canvas({ children }: Props) {
+function Canvas({ width, height, children }: Props): JSX.Element {
   const identify = useIdentify();
 
   const canvasRef = useRef<null | HTMLCanvasElement>(null);
@@ -18,6 +20,12 @@ function Canvas({ children }: Props) {
     canvasRef.current.id = identify('canvas');
     canvasRef.current.classList.add('Canvas__canvas');
   }
+
+  if (Number.isFinite(width))
+    canvasRef.current.width = width as number;
+
+  if (Number.isFinite(height))
+    canvasRef.current.height = height as number;
 
   if (!contextRef.current) {
     contextRef.current = canvasRef.current.getContext('2d', {
