@@ -3,7 +3,7 @@ export type Source = HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
 function createSource(type: string): Source {
   switch (type) {
     case 'image':
-      return window.document.createElement('video');
+      return window.document.createElement('img');
     case 'audio':
       return window.document.createElement('audio');
     case 'video':
@@ -38,8 +38,8 @@ function fetchSource(uri: string, type: string): Promise<Source> {
       source.removeEventListener('error', onError);
     };
 
-    source.removeEventListener('load', onLoad);
-    source.removeEventListener('error', onError);
+    source.addEventListener('load', onLoad);
+    source.addEventListener('error', onError);
     source.src = uri;
   });
 }
