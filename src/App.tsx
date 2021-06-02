@@ -1,15 +1,12 @@
 import './context';
-import { Suspense } from 'react';
-import { Canvas } from 'lib/canvas';
-import Animation from './Animation';
+import { Route, BrowserRouter } from 'react-router-dom';
+import Logo from 'animations/logo/Logo';
 
 function App() {
   return (
-    <Canvas width={300} height={300}>
-      <Suspense fallback={<p>Carregando...</p>}>
-        <Animation />
-      </Suspense>
-    </Canvas>
+    <BrowserRouter>
+      <Route path="/logo" component={Logo} />
+    </BrowserRouter>
   );
 }
 

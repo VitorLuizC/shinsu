@@ -47,7 +47,8 @@ function Canvas(props: Props): JSX.Element {
     canvas.id = identify('canvas');
     canvas.classList.add('Canvas__canvas');
     containerRef.current.prepend(canvas);
-  }, [canvas, identify]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CanvasContext.Provider value={{ canvas, context }}>

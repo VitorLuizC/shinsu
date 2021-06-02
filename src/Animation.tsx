@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { LazyImage } from 'lib/image';
 import { Translate } from 'lib/transform';
 import { useAnimationFrame } from 'lib/animation';
+import { Canvas } from 'lib/canvas';
 
 function Earth() {
   const date = new Date();
@@ -60,13 +61,17 @@ function Animation() {
   });
 
   return (
-    <Translate center>
-      <Sun />
-      <Translate x={105}>
-        <Earth />
-        <Moon />
-      </Translate>
-    </Translate>
+    <Canvas width={300} height={300}>
+      <Suspense fallback={<p>Carregando...</p>}>
+        <Translate center>
+          <Sun />
+          <Translate x={105}>
+            <Earth />
+            <Moon />
+          </Translate>
+        </Translate>
+      </Suspense>
+    </Canvas>  
   );
 }
 
