@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { useCanvasContext } from './canvas';
+import { useCanvasContext } from '../canvas';
 
 function Restore(): null {
   const context = useCanvasContext();

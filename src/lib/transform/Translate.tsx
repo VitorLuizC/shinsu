@@ -1,12 +1,12 @@
 import { ReactNode, useLayoutEffect } from 'react';
-import { useCanvasContext } from './canvas';
+import { useCanvasContext } from '../canvas';
 import Restore from './Restore';
 
 type Props = {
   x?: number;
   y?: number;
   center?: boolean;
-  children?: ReactNode;
+  children: ReactNode;
 };
 
 function Translate(props: Props): JSX.Element {
