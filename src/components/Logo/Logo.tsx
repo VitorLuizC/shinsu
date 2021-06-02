@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import LOGO_URL from './logo.svg';
-import { LazyImage } from '../../lib/image';
-import { Rotate, Translate } from '../../lib/transform';
-import { useAnimationFrame } from '../../lib/animation';
+import { LazyImage } from 'lib/image';
+import { Rotate, Translate } from 'lib/transform';
+import { useAnimationFrame } from 'lib/animation';
 
 function Logo(): JSX.Element | null {
   const [angle, setAngle] = useState(0);

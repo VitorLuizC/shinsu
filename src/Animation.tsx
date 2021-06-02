@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { LazyImage } from './lib/image';
-import { Translate } from './lib/transform';
-import { useAnimationFrame } from './lib/animation';
+import { LazyImage } from 'lib/image';
+import { Translate } from 'lib/transform';
+import { useAnimationFrame } from 'lib/animation';
 
 function Earth() {
   const date = new Date();
