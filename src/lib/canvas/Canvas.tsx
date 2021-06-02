@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
-import useIdentify from '../../hooks/useIdentify';
+import { useIdentify } from '../identity';
 import CanvasContext from './CanvasContext';
 
 type Props = {
