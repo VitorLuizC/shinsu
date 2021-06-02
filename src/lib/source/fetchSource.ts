@@ -1,22 +1,12 @@
-export type Source = HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
-
-function createSource(type: string): Source {
-  switch (type) {
-    case 'image':
-      return window.document.createElement('img');
-    case 'audio':
-      return window.document.createElement('audio');
-    case 'video':
-      return window.document.createElement('video');
-    default:
-      throw new Error(`Invalid resource type "${type}".`);
-  }
-}
+import type Source from './Source';
+import type SourceType from './SourceType';
+import createSource from './createSource';
 
 function fetchSource(uri: string, type: 'image'): Promise<HTMLImageElement>;
 function fetchSource(uri: string, type: 'audio'): Promise<HTMLAudioElement>;
 function fetchSource(uri: string, type: 'video'): Promise<HTMLVideoElement>;
-function fetchSource(uri: string, type: string): Promise<Source> {
+function fetchSource(uri: string, type: SourceType): Promise<Source>;
+function fetchSource(uri: string, type: SourceType): Promise<Source> {
   const source = createSource(type);
 
   return new Promise<Source>((resolve, reject) => {

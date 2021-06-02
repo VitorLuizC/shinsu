@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LazyImage from './lib/LazyImage/LazyImage';
+import { LazyImage } from './lib/image';
 import useAnimationFrame from './hooks/useAnimationFrame';
 import Translate from './lib/Translate';
 

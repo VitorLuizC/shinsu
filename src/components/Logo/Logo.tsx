@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import fetchImage from 'fetch-img';
 import LOGO_URL from './logo.svg';
-import Image from '../../lib/Image/Image';
+import { Image } from '../../lib/image';
 import Rotate from '../../lib/Rotate';
 import useAnimationFrame from '../../hooks/useAnimationFrame';
 
