@@ -1,4 +1,4 @@
-import { memo, ReactNode, useLayoutEffect } from 'react';
+import { memo, ReactNode } from 'react';
 import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
 
@@ -11,10 +11,8 @@ function Rotate(props: Props): JSX.Element {
   const { angle = 0, children } = props;
   const context = useCanvasContext();
 
-  useLayoutEffect(() => {
-    context.save();
-    context.rotate((angle * Math.PI) / 180);
-  });
+  context.save();
+  context.rotate((angle * Math.PI) / 180);
 
   return (
     <>

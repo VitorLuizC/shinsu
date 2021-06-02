@@ -1,4 +1,3 @@
-import { useLayoutEffect } from 'react';
 import { useCanvasContext } from 'lib/canvas';
 
 export type Position = [x: number, y: number];
@@ -23,15 +22,11 @@ function Image(props: Props): null {
     translate: [translateX, translateY] = [0, 0],
   } = props;
 
-  useLayoutEffect(() => {
-    context.save();
-
-    context.rotate(rotate);
-    context.translate(translateX, translateY);
-    context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
-
-    context.restore();
-  });
+  context.save();
+  context.rotate(rotate);
+  context.translate(translateX, translateY);
+  context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
+  context.restore();
 
   return null;
 }

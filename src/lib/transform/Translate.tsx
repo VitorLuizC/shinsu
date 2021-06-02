@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect } from 'react';
+import type { ReactNode } from 'react';
 import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
 
@@ -19,13 +19,12 @@ function Translate(props: Props): JSX.Element {
 
   const context = useCanvasContext();
 
-  useLayoutEffect(() => {
-    context.save();
-    context.translate(
-      center ? context.canvas.width / 2 : x,
-      center ? context.canvas.height / 2 : y,
-    );
-  });
+  context.save();
+  if (center)
+    context.translate(context.canvas.width / 2, context.canvas.height / 2);
+  else
+    context.translate(x, y);
+
 
   return (
     <>
