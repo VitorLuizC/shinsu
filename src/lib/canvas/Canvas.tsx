@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
 import useIdentify from '../../hooks/useIdentify';
-import CanvasContext from "./CanvasContext";
+import CanvasContext from './CanvasContext';
 
 type Props = {
   children: ReactNode;
@@ -8,52 +8,54 @@ type Props = {
   height?: number;
 };
 
-function Canvas({ width, height, children }: Props): JSX.Element {
+function Canvas(props: Props): JSX.Element {
+  const {
+    width = 640,
+    height = 480,
+    children,
+  } = props;
+
   const identify = useIdentify();
 
-  const canvasRef = useRef<null | HTMLCanvasElement>(null);
-  const contextRef = useRef<null | CanvasRenderingContext2D>(null);
-  const containerRef = useRef<null | HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  if (!canvasRef.current) {
-    canvasRef.current = window.document.createElement('canvas');
-    canvasRef.current.id = identify('canvas');
-    canvasRef.current.classList.add('Canvas__canvas');
-  }
+  const contextRef = useRef<CanvasRenderingContext2D>(null);
 
-  if (Number.isFinite(width))
-    canvasRef.current.width = width as number;
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  if (Number.isFinite(height))
-    canvasRef.current.height = height as number;
+  const canvas = canvasRef.current ?? window.document.createElement('canvas');
 
-  if (!contextRef.current) {
-    contextRef.current = canvasRef.current.getContext('2d', {
-      alpha: true,
-      desynchronized: false,
-    });
+  const context = contextRef.current ?? canvas.getContext('2d', {
+    alpha: true,
+    desynchronized: false,
+  });
 
-    if (!contextRef.current)
-      throw new Error('Couldn\'t get canvas\' context.');
-  }
+  if (!context)
+    throw new Error('Couldn\'t get canvas\' context.');
+
+  useLayoutEffect(() => {
+    canvas.width = width;
+  }, [canvas, width]);
+
+  useLayoutEffect(() => {
+    canvas.height = height;
+  }, [canvas, height]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // `!` was used because it will not be `null` when effect is executed.
-    containerRef.current.prepend(canvasRef.current!);
-  }, []);
+    canvas.id = identify('canvas');
+    canvas.classList.add('Canvas__canvas');
+    containerRef.current.prepend(canvas);
+  }, [canvas, identify]);
 
   return (
-    <CanvasContext.Provider value={{
-      canvas: canvasRef.current,
-      context: contextRef.current,
-    }}>
-      <div className="Canvas" ref={containerRef}>
+    <CanvasContext.Provider value={{ canvas, context }}>
+      <div ref={containerRef} className="Canvas">
         {children}
       </div>
     </CanvasContext.Provider>
-  )
+  );
 }
 
 export default Canvas;
