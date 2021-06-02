@@ -1,6 +1,6 @@
 import './context';
 import { Suspense } from 'react';
-import { Canvas } from './components/Canvas';
+import { Canvas } from './lib/canvas';
 import Animation from './Animation';
 
 function App() {

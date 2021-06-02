@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { useCanvasContext } from "../../components/Canvas";
+import { useCanvasContext } from "../canvas";
 
 export type Position = [x: number, y: number];
 

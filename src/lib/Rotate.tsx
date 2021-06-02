@@ -1,5 +1,5 @@
 import { memo, ReactNode, useLayoutEffect } from 'react';
-import { useCanvasContext } from '../components/Canvas';
+import { useCanvasContext } from './canvas';
 import Restore from './Restore';
 
 type Props = {
