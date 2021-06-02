@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import generateHash from '../utils/generateHash';
+import generateHash from './generateHash';
 
 function useId(): string {
   return useMemo(() => 'id-' + generateHash(), []);

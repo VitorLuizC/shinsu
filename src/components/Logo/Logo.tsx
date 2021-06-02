@@ -1,25 +1,19 @@
-import { useEffect, useState } from 'react';
-import fetchImage from 'fetch-img';
+import { useState } from 'react';
 import LOGO_URL from './logo.svg';
-import { Image } from '../../lib/image';
-import Rotate from '../../lib/Rotate';
-import useAnimationFrame from '../../hooks/useAnimationFrame';
+import { LazyImage } from '../../lib/image';
+import { Rotate, Translate } from '../../lib/transform';
+import { useAnimationFrame } from '../../lib/animation';
 
 function Logo(): JSX.Element | null {
   const [angle, setAngle] = useState(0);
-  const [source, setSource] = useState<null | HTMLImageElement>(null);
-
-  useEffect(() => {
-    fetchImage(LOGO_URL).then(setSource);
-  }, []);
 
   useAnimationFrame(() => setAngle((angle) => angle + 0.001));
 
-  if (!source) return null;
-
   return (
     <Rotate angle={angle}>
-      <Image source={source} />
+      <Translate center>
+        <LazyImage uri={LOGO_URL} rotate={angle} />
+      </Translate>
     </Rotate>
   );
 }

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import generateHash from '../utils/generateHash';
+import generateHash from './generateHash';
 
 export type Identify = (name: string) => string;
 
