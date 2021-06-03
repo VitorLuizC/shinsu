@@ -4,17 +4,17 @@ import Restore from './Restore';
 import { useAnimationEffect } from 'lib/animation';
 
 type Props = {
-  angle?: number;
+  rotation?: number;
   children: ReactNode;
 };
 
 function Rotate(props: Props): JSX.Element {
-  const { angle = 0, children } = props;
+  const { rotation = 0, children } = props;
   const context = useCanvasContext();
 
   useAnimationEffect(() => {
     context.save();
-    context.rotate((angle * Math.PI) / 180);
+    context.rotate((rotation * Math.PI) / 180);
   });
 
   return (

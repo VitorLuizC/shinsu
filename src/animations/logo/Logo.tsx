@@ -20,7 +20,7 @@ function Logo(): JSX.Element | null {
   });
 
   return (
-    <Rotate angle={rotation}>
+    <Rotate rotation={rotation}>
       <LazyImage
         uri={LOGO_URL}
         width={841.9}
