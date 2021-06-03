@@ -1,6 +1,6 @@
 const Context = CanvasRenderingContext2D.prototype;
 
-const DEBUG = process.env['DEBUG']?.toString() === 'true';
+const DEBUG = true;
 
 if (DEBUG) {
   Object.keys(Context).forEach((key) => {

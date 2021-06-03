@@ -16,17 +16,18 @@ function Image(props: Props): null {
   const {
     width,
     height,
-    rotate = 0,
+    rotate,
     source,
     position: [x, y] = [0, 0],
     translate: [translateX, translateY] = [0, 0],
   } = props;
 
-  context.save();
-  context.rotate(rotate);
+  // context.save();
+  if (rotate !== undefined)
+    context.rotate(rotate);
   context.translate(translateX, translateY);
   context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
-  context.restore();
+  // context.restore();
 
   return null;
 }
