@@ -1,4 +1,6 @@
+import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
+import { memo } from 'react';
 
 export type Position = [x: number, y: number];
 
@@ -13,6 +15,7 @@ type Props = {
 
 function Image(props: Props): null {
   const context = useCanvasContext();
+
   const {
     width,
     height,
@@ -22,14 +25,16 @@ function Image(props: Props): null {
     translate: [translateX, translateY] = [0, 0],
   } = props;
 
-  // context.save();
-  if (rotate !== undefined)
-    context.rotate(rotate);
-  context.translate(translateX, translateY);
-  context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
-  // context.restore();
+  useAnimationEffect(() => {
+    context.save();
+    if (rotate !== undefined)
+      context.rotate(rotate);
+    context.translate(translateX, translateY);
+    context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
+    context.restore();
+  });
 
   return null;
 }
 
-export default Image;
+export default memo(Image);

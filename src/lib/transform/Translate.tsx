@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
+import { useAnimationEffect } from 'lib/animation';
 
 type Props = {
   x?: number;
@@ -19,12 +20,13 @@ function Translate(props: Props): JSX.Element {
 
   const context = useCanvasContext();
 
-  context.save();
-  if (center)
-    context.translate(context.canvas.width / 2, context.canvas.height / 2);
-  else
-    context.translate(x, y);
-
+  useAnimationEffect(() => {
+    context.save();
+    if (center)
+      context.translate(context.canvas.width / 2, context.canvas.height / 2);
+    else
+      context.translate(x, y);
+  });
 
   return (
     <>
@@ -34,4 +36,4 @@ function Translate(props: Props): JSX.Element {
   );
 }
 
-export default Translate;
+export default memo(Translate);
