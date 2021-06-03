@@ -15,7 +15,8 @@ function Earth() {
     <LazyImage
       uri="https://mdn.mozillademos.org/files/1429/Canvas_earth.png"
       rotate={rotate}
-      position={[-12, -12]}
+      positionX={-12}
+      positionY={-12}
     />
   );
 }
@@ -41,8 +42,9 @@ function Moon() {
     <LazyImage
       uri="https://mdn.mozillademos.org/files/1443/Canvas_moon.png"
       rotate={rotate}
-      translate={[0, 28.5]}
-      position={[-3.5, -3.5]}
+      positionX={-3.5}
+      positionY={-3.5}
+      translateY={28.5}
     />
   );
 }

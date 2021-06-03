@@ -2,35 +2,38 @@ import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
 import { memo } from 'react';
 
-export type Position = [x: number, y: number];
-
 type Props = {
   width?: number;
   height?: number;
   rotate?: number;
   source: HTMLImageElement;
-  position?: Position;
-  translate?: Position;
+  positionX?: number;
+  positionY?: number;
+  translateX?: number;
+  translateY?: number;
 };
 
 function Image(props: Props): null {
   const context = useCanvasContext();
 
   const {
-    width,
-    height,
-    rotate,
     source,
-    position: [x, y] = [0, 0],
-    translate: [translateX, translateY] = [0, 0],
+    rotate,
+    translateX,
+    translateY,
+    width = source.width,
+    height = source.height,
+    positionX = 0,
+    positionY = 0,
   } = props;
 
   useAnimationEffect(() => {
     context.save();
     if (rotate !== undefined)
       context.rotate(rotate);
-    context.translate(translateX, translateY);
-    context.drawImage(source, x, y, width ?? source.width, height ?? source.height);
+    if (translateX !== undefined || translateY !== undefined)
+      context.translate(translateX ?? 0, translateY ?? 0);
+    context.drawImage(source, positionX, positionY, width, height);
     context.restore();
   });
 

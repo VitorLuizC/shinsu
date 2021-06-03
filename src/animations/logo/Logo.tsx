@@ -11,21 +11,21 @@ import { Animation, useAnimationEffect } from 'lib/animation';
 function Logo(): JSX.Element | null {
   const context = useCanvasContext();
   
-  const [rotate, setRotate] = useState(0);
+  const [rotation, setRotation] = useState(0);
 
   useAnimationEffect(() => {
-    setRotate((rotate) => rotate + 0.001);
+    setRotation((rotation) => rotation + 0.001);
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   });
 
   return (
-    <Rotate angle={rotate}>
+    <Rotate angle={rotation}>
       <LazyImage
         uri={LOGO_URL}
         width={841.9}
         height={595.3}
-        position={[0, 0]}
+        rotate={rotation}
       />
     </Rotate>
   );
