@@ -3,9 +3,7 @@ import { useEffect, useRef } from 'react';
 function useAnimationFrame(callback: FrameRequestCallback) {
   const callbackRef = useRef(callback);
 
-  if (callbackRef.current !== callback) {
-    callbackRef.current = callback;
-  }
+  callbackRef.current = callback;
   
   useEffect(() => {
     let handle: number;

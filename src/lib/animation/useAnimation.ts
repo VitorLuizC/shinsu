@@ -2,10 +2,9 @@ import { useContext, useLayoutEffect, useRef } from 'react'
 import AnimationContext from './AnimationContext'
 
 function useAnimationEffect(effect: (time: number) => void) {
-  const effectRef = useRef<null | ((time: number) => void)>(null);
+  const effectRef = useRef(effect);
 
-  if (effectRef.current !== effect)
-    effectRef.current = effect;
+  effectRef.current = effect;
   
   const context = useContext(AnimationContext);
 
