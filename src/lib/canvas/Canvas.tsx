@@ -1,6 +1,8 @@
-import { ReactNode, useEffect, useLayoutEffect, useRef } from 'react';
+import { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
 import { useIdentify } from 'lib/identity';
 import CanvasContext from './CanvasContext';
+import createCanvas from './createCanvas';
+import createCanvasContext from './createCanvasContext';
 
 type Props = {
   children: ReactNode;
@@ -17,21 +19,16 @@ function Canvas(props: Props): JSX.Element {
 
   const identify = useIdentify();
 
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<null | HTMLCanvasElement>(null);
 
-  const contextRef = useRef<CanvasRenderingContext2D>(null);
+  const contextRef = useRef<null | CanvasRenderingContext2D>(null);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
+    id: identify('canvas'),
+    className: 'Canvas__canvas',
+  }));
 
-  const canvas = canvasRef.current ?? window.document.createElement('canvas');
-
-  const context = contextRef.current ?? canvas.getContext('2d', {
-    alpha: true,
-    desynchronized: false,
-  });
-
-  if (!context)
-    throw new Error('Couldn\'t get canvas\' context.');
+  const context = contextRef.current ?? (contextRef.current = createCanvasContext(canvas));
 
   useLayoutEffect(() => {
     canvas.width = width;
@@ -41,14 +38,11 @@ function Canvas(props: Props): JSX.Element {
     canvas.height = height;
   }, [canvas, height]);
 
-  useEffect(() => {
-    if (!containerRef.current) return;
+  const containerRef = useCallback((container: null | HTMLDivElement) => {
+    if (!container) return;
 
-    canvas.id = identify('canvas');
-    canvas.classList.add('Canvas__canvas');
-    containerRef.current.prepend(canvas);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    container.prepend(canvas);
+  }, [canvas]);
 
   return (
     <CanvasContext.Provider value={{ canvas, context }}>
