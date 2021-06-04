@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
+import { ReactNode, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
 import { useIdentify } from 'lib/identity';
 import CanvasContext from './CanvasContext';
 import createCanvas from './createCanvas';
@@ -25,18 +25,20 @@ function Canvas(props: Props): JSX.Element {
 
   const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
     id: identify('canvas'),
+    width,
+    height,
     className: 'Canvas__canvas',
   }));
 
   const context = contextRef.current ?? (contextRef.current = createCanvasContext(canvas));
 
   useLayoutEffect(() => {
-    canvas.width = width;
-  }, [canvas, width]);
+    if (canvas.width !== width)
+      canvas.width = width;
 
-  useLayoutEffect(() => {
-    canvas.height = height;
-  }, [canvas, height]);
+    if (canvas.height !== height)
+      canvas.height = height;
+  }, [canvas, width, height]);
 
   const containerRef = useCallback((container: null | HTMLDivElement) => {
     if (!container) return;
@@ -44,8 +46,10 @@ function Canvas(props: Props): JSX.Element {
     container.prepend(canvas);
   }, [canvas]);
 
+  const value = useMemo(() => ({ canvas, context }), [canvas, context]);
+
   return (
-    <CanvasContext.Provider value={{ canvas, context }}>
+    <CanvasContext.Provider value={value}>
       <div ref={containerRef} className="Canvas">
         {children}
       </div>
