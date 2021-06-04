@@ -14,7 +14,7 @@ function Rotate(props: Props): JSX.Element {
 
   useAnimationEffect(() => {
     context.save();
-    context.rotate((rotation * Math.PI) / 180);
+    context.rotate(rotation);
   });
 
   return (
