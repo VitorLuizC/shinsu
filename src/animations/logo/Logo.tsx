@@ -14,7 +14,7 @@ function Logo(): JSX.Element | null {
   const [rotation, setRotation] = useState(0);
 
   useAnimationEffect(() => {
-    setRotation((rotation) => rotation + 0.001);
+    setRotation((rotation) => rotation + 0.5);
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   });
