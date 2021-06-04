@@ -11,13 +11,14 @@ function Animation(props: Props) {
 
   const [time, setTime] = useState(() => window.performance.now());
 
-  const operationsRef = useRef<null | Set<FrameRequestCallback>>(null);
+  const operationsRef = useRef<Set<FrameRequestCallback>>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const operations = operationsRef.current ?? (operationsRef.current = new Set());
 
   useAnimationFrame((time) => {
     setTime(time);
+    console.clear();
     operations.forEach((operation) => operation(time));
     operations.clear();
   });

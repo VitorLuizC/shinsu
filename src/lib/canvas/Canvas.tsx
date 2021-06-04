@@ -19,9 +19,9 @@ function Canvas(props: Props): JSX.Element {
 
   const identify = useIdentify();
 
-  const canvasRef = useRef<null | HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>();
 
-  const contextRef = useRef<null | CanvasRenderingContext2D>(null);
+  const contextRef = useRef<CanvasRenderingContext2D>();
 
   const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
     id: identify('canvas'),
