@@ -1,6 +1,5 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useMemo, useRef, useState } from 'react';
 import AnimationContext from './AnimationContext';
-import type AnimationEffectRef from './AnimationEffectRef';
 import useAnimationFrame from './useAnimationFrame';
 
 type Props = {
@@ -10,18 +9,23 @@ type Props = {
 function Animation(props: Props) {
   const { children } = props;
 
-  const effectsRef = useRef<null | Set<AnimationEffectRef>>(null);
+  const [time, setTime] = useState(() => window.performance.now());
 
-  const effects = effectsRef.current ?? (effectsRef.current = new Set());
+  const operationsRef = useRef<null | Set<FrameRequestCallback>>(null);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const operations = operationsRef.current ?? (operationsRef.current = new Set());
 
   useAnimationFrame((time) => {
-    effects.forEach((effectRef) => {
-      effectRef.current?.(time);
-    });
+    setTime(time);
+    operations.forEach((operation) => operation(time));
+    operations.clear();
   });
 
+  const value = useMemo(() => ({ time, operations }), [time, operations]);
+
   return (
-    <AnimationContext.Provider value={{ time: 0, effects }}>
+    <AnimationContext.Provider value={value}>
       {children}
     </AnimationContext.Provider>
   );

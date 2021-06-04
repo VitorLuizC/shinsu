@@ -1,4 +1,4 @@
-import { memo, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
 import { useAnimationEffect } from 'lib/animation';
@@ -25,4 +25,4 @@ function Rotate(props: Props): JSX.Element {
   );
 }
 
-export default memo(Rotate);
+export default Rotate;

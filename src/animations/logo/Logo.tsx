@@ -25,7 +25,6 @@ function Logo(): JSX.Element | null {
         uri={LOGO_URL}
         width={841.9}
         height={595.3}
-        rotate={rotation}
       />
     </Rotate>
   );

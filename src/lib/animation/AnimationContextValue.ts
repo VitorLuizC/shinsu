@@ -1,8 +1,6 @@
-import type AnimationEffectRef from './AnimationEffectRef';
-
 type AnimationContextValue = {
   time: number;
-  effects: Set<AnimationEffectRef>;
+  operations: Set<FrameRequestCallback>;
 };
 
 export default AnimationContextValue;

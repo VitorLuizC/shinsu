@@ -1,6 +1,5 @@
 import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
-import { memo } from 'react';
 
 type Props = {
   width?: number;
@@ -40,4 +39,4 @@ function Image(props: Props): null {
   return null;
 }
 
-export default memo(Image);
+export default Image;

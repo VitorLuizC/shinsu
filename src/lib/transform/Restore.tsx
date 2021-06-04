@@ -1,6 +1,5 @@
 import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
-import { memo } from 'react';
 
 function Restore(): null {
   const context = useCanvasContext();
@@ -10,4 +9,4 @@ function Restore(): null {
   return null;
 }
 
-export default memo(Restore);
+export default Restore;
