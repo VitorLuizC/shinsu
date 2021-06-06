@@ -1,13 +1,13 @@
 import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
-
-type Color = string | CanvasGradient | CanvasPattern;
+import type Color from './Color';
 
 type Props = {
   size: number;
   fillColor?: Color;
   positionX?: number;
   positionY?: number;
+  strokeWidth?: number;
   strokeColor?: Color;
 };
 
@@ -16,6 +16,7 @@ function Circle(props: Props): null {
     size = 0,
     fillColor,
     strokeColor,
+    strokeWidth,
     positionX = 0,
     positionY = 0,
   } = props;
@@ -32,12 +33,15 @@ function Circle(props: Props): null {
     if (strokeColor !== undefined)
       context.strokeStyle = strokeColor;
 
+    if (strokeWidth !== undefined)
+      context.lineWidth = strokeWidth;
+
     context.arc(positionX, positionY, size / 2, 0, Math.PI * 2, false);
 
     if (fillColor !== undefined)
       context.fill();
 
-    if (strokeColor !== undefined)
+    if (strokeColor !== undefined || strokeWidth !== undefined)
       context.stroke();
     context.closePath();
     context.restore();
