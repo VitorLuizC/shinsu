@@ -45,7 +45,7 @@ function Clock() {
 function App(): JSX.Element {
   return (
     <Canvas width={150} height={150}>
-      <Animation>
+      <Animation framesPerSecond={1}>
         <Clock />
       </Animation>
     </Canvas>

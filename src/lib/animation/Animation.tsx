@@ -4,26 +4,35 @@ import useAnimationFrame from './useAnimationFrame';
 
 type Props = {
   children?: ReactNode;
+  framesPerSecond?: number;
 };
 
 function Animation(props: Props) {
-  const { children } = props;
+  const { children, framesPerSecond } = props;
 
-  const [time, setTime] = useState(() => window.performance.now());
+  const [state, setState] = useState(() => ({
+    time: window.performance.now(),
+    framesPerSecond: 0,
+  }));
 
   const operationsRef = useRef<Set<FrameRequestCallback>>();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const operations = operationsRef.current ?? (operationsRef.current = new Set());
 
-  useAnimationFrame((time) => {
-    setTime(time);
+  useAnimationFrame((currentTime) => {
+    const currentFramesPerSecond = 1000 / (currentTime - state.time)
+
+    if (framesPerSecond !== undefined && framesPerSecond < currentFramesPerSecond)
+      return;
+
+    setState({ time: currentTime, framesPerSecond: currentFramesPerSecond });
     console.clear();
-    operations.forEach((operation) => operation(time));
+    operations.forEach((operation) => operation(currentTime));
     operations.clear();
   });
 
-  const value = useMemo(() => ({ time, operations }), [time, operations]);
+  const value = useMemo(() => ({ time: state.time, operations }), [state, operations]);
 
   return (
     <AnimationContext.Provider value={value}>
