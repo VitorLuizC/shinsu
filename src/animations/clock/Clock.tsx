@@ -1,78 +1,118 @@
 import { Animation, useAnimationEffect } from 'lib/animation';
 import { Canvas, useCanvasContext } from 'lib/canvas';
 import { Rotate, Scale, Translate } from 'lib/transform';
+import { Radian } from 'lib/unit';
 
-function Clock1(): null {
-  const now = new Date();
+function HourMark(): null {
   const context = useCanvasContext();
 
   useAnimationEffect(() => {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
     context.save();
     context.strokeStyle = 'black';
     context.fillStyle = 'white';
     context.lineWidth = 8;
     context.lineCap = 'round';
-
-    // Hour marks
-    context.save();
-    for (var i = 0; i < 12; i++) {
-      context.beginPath();
-      context.rotate(Math.PI / 6);
-      context.moveTo(100, 0);
-      context.lineTo(120, 0);
-      context.stroke();
-    }
+    context.beginPath();
+    context.moveTo(100, 0);
+    context.lineTo(120, 0);
+    context.stroke();
     context.restore();
+  });
+  
+  return null;
+}
 
-    // Minute marks
+function MinuteMark(): null {
+  const context = useCanvasContext();
+
+  useAnimationEffect(() => {
     context.save();
+    context.strokeStyle = 'black';
+    context.fillStyle = 'white';
+    context.lineCap = 'round';
     context.lineWidth = 5;
-    for (i = 0; i < 60; i++) {
-      if (i % 5 !== 0) {
-        context.beginPath();
-        context.moveTo(117, 0);
-        context.lineTo(120, 0);
-        context.stroke();
-      }
-      context.rotate(Math.PI / 30);
-    }
+    context.beginPath();
+    context.moveTo(117, 0);
+    context.lineTo(120, 0);
+    context.stroke();
     context.restore();
+  });
+  
+  return null;
+}
 
-    var sec = now.getSeconds();
-    var min = now.getMinutes();
-    var hr  = now.getHours();
-    hr = hr >= 12 ? hr - 12 : hr;
+type Props = {
+  time: Date;
+};
 
-    context.fillStyle = 'black';
+function getHours(time: Date): number {
+  const hours = time.getHours();
+  if (hours < 12)
+    return hours;
+  return hours - 12;
+}
 
-    // write Hours
+function HourPointer({ time }: Props): null {
+  const context = useCanvasContext();
+
+  useAnimationEffect(() => {
     context.save();
-    context.rotate(hr * (Math.PI / 6) + (Math.PI / 360) * min + (Math.PI / 21600) *sec);
+    context.lineCap = 'round';
     context.lineWidth = 14;
+    context.fillStyle = 'black';
+    context.strokeStyle = 'black';
+    context.rotate(
+      (Math.PI / 6) * getHours(time) +
+      (Math.PI / 6 / 60) * time.getMinutes() +
+      (Math.PI / 6 / 60 / 60) * time.getSeconds()
+    );
     context.beginPath();
     context.moveTo(-20, 0);
     context.lineTo(80, 0);
     context.stroke();
     context.restore();
+  });
 
-    // write Minutes
+  return null;
+}
+
+function MinutePointer({ time }: Props): null {
+  const context = useCanvasContext();
+
+  useAnimationEffect(() => {
     context.save();
-    context.rotate((Math.PI / 30) * min + (Math.PI / 1800) * sec);
+    context.strokeStyle = 'black';
+    context.fillStyle = 'black';
     context.lineWidth = 10;
+    context.lineCap = 'round';
+    context.rotate(
+      (Math.PI / 30) * time.getMinutes() +
+      (Math.PI / 30 / 60) * time.getSeconds()
+    );
     context.beginPath();
     context.moveTo(-28, 0);
     context.lineTo(112, 0);
     context.stroke();
     context.restore();
+  });
 
-    // Write seconds
+  return null;
+}
+
+function SecondPointer({ time }: Props): null {
+  const context = useCanvasContext();
+
+  useAnimationEffect(() => {
     context.save();
-    context.rotate(sec * Math.PI / 30);
-    context.strokeStyle = '#D40000';
+    
+    context.lineCap = 'round';
     context.fillStyle = '#D40000';
     context.lineWidth = 6;
+    context.strokeStyle = '#D40000';
+
+    // Write seconds
+    context.rotate(time.getSeconds() * Math.PI / 30);
+    
     context.beginPath();
     context.moveTo(-30, 0);
     context.lineTo(83, 0);
@@ -87,13 +127,21 @@ function Clock1(): null {
     context.arc(0, 0, 3, 0, Math.PI * 2, true);
     context.fill();
     context.restore();
+  });
 
+  return null;
+}
+
+function Border(): null {
+  const context = useCanvasContext();
+
+  useAnimationEffect(() => {
+    context.save();
     context.beginPath();
     context.lineWidth = 14;
     context.strokeStyle = '#325FA2';
     context.arc(0, 0, 142, 0, Math.PI * 2, true);
     context.stroke();
-
     context.restore();
   });
 
@@ -103,6 +151,8 @@ function Clock1(): null {
 function Clock() {
   const context = useCanvasContext();
 
+  const time = new Date();
+
   useAnimationEffect(() => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   });
@@ -110,8 +160,22 @@ function Clock() {
   return (
     <Translate center>
       <Scale scaleX={0.4} scaleY={0.4}>
-        <Rotate rotation={-Math.PI / 2}>
-          <Clock1 />
+        <Rotate rotation={Radian.fromDegree(-90)}>
+          {Array.from(Array(12), (_, index) => (
+            <Rotate rotation={Radian.fromDegree(30 * index)}>
+              <HourMark />
+            </Rotate>
+          ))}
+
+          {Array.from(Array(60), (_, index) => (
+            <Rotate rotation={Radian.fromDegree(6 * index)}>
+              <MinuteMark />
+            </Rotate>
+          ))}
+          <HourPointer time={time} />
+          <MinutePointer time={time} />
+          <SecondPointer time={time} />
+          <Border />
         </Rotate>
       </Scale>
     </Translate>
