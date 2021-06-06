@@ -1,4 +1,7 @@
 import { LazyImage } from 'lib/image';
+import { Circle } from 'lib/shape';
+
+const distance = 28.5;
 
 export default function Moon() {
   const date = new Date();
@@ -9,12 +12,18 @@ export default function Moon() {
   );
 
   return (
-    <LazyImage
-      uri="https://mdn.mozillademos.org/files/1443/Canvas_moon.png"
-      rotate={rotate}
-      positionX={-3.5}
-      positionY={-3.5}
-      translateY={28.5}
-    />
+    <>
+      <Circle
+        size={distance * 2}
+        strokeColor="rgba(0, 153, 255, 0.4)"
+      />
+      <LazyImage
+        uri="https://mdn.mozillademos.org/files/1443/Canvas_moon.png"
+        rotate={rotate}
+        positionX={-3.5}
+        positionY={-3.5}
+        translateY={distance}
+      />
+    </>
   );
 }
