@@ -1,5 +1,4 @@
-import { useAnimationEffect } from 'lib/animation';
-import { useCanvasContext } from 'lib/canvas';
+import { useRender } from 'lib/renderer';
 import type Color from './Color';
 
 type Props = {
@@ -23,9 +22,7 @@ function Line(props: Props): null {
     strokeColor,
   } = props;
 
-  const context = useCanvasContext();
-
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     if (cap !== undefined)
       context.lineCap = cap;

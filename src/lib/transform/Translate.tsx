@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
-import { useCanvasContext } from 'lib/canvas';
-import { useAnimationEffect } from 'lib/animation';
 import Restore from './Restore';
+import { useRender } from 'lib/renderer';
 
 type Props = {
   x?: number;
@@ -18,9 +17,7 @@ function Translate(props: Props): JSX.Element {
     children,
   } = props;
 
-  const context = useCanvasContext();
-
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     if (center)
       context.translate(context.canvas.width / 2, context.canvas.height / 2);

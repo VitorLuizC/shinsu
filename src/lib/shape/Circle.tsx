@@ -1,5 +1,4 @@
-import { useAnimationEffect } from 'lib/animation';
-import { useCanvasContext } from 'lib/canvas';
+import { useRender } from 'lib/renderer';
 import type Color from './Color';
 
 type Props = {
@@ -21,9 +20,7 @@ function Circle(props: Props): null {
     positionY = 0,
   } = props;
 
-  const context = useCanvasContext();
-
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     context.beginPath();
 

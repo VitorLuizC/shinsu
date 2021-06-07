@@ -1,5 +1,3 @@
-import { Animation, useAnimationEffect } from 'lib/animation';
-import { Canvas, useCanvasContext } from 'lib/canvas';
 import { Rotate, Scale, Translate } from 'lib/transform';
 import { Radian } from 'lib/unit';
 import Border from './Border';
@@ -8,17 +6,16 @@ import MinuteMark from './MinuteMark';
 import MinutePointer from './MinutePointer';
 import HourPointer from './HourPointer';
 import SecondPointer from './SecondPointer';
+import { Renderer, useRender } from 'lib/renderer';
 
 function range(from: number, to: number): number[] {
   return Array.from(Array(to - from), (_, index) => index + from);
 }
 
 function Clock() {
-  const context = useCanvasContext();
-
   const time = new Date();
 
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   });
 
@@ -44,11 +41,9 @@ function Clock() {
 
 function App(): JSX.Element {
   return (
-    <Canvas width={150} height={150}>
-      <Animation framesPerSecond={1}>
-        <Clock />
-      </Animation>
-    </Canvas>
+    <Renderer width={150} height={150} framesPerSecond={1}>
+      <Clock />
+    </Renderer>
   );
 }
 

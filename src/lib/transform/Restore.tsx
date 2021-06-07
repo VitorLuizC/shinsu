@@ -1,10 +1,7 @@
-import { useAnimationEffect } from 'lib/animation';
-import { useCanvasContext } from 'lib/canvas';
+import { useRender } from 'lib/renderer';
 
 function Restore(): null {
-  const context = useCanvasContext();
-
-  useAnimationEffect(() => context.restore());
+  useRender((context) => context.restore());
 
   return null;
 }

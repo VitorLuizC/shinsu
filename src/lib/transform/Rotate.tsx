@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
-import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
-import { useAnimationEffect } from 'lib/animation';
+import { useRender } from 'lib/renderer';
 
 type Props = {
   rotation?: number;
@@ -10,9 +9,8 @@ type Props = {
 
 function Rotate(props: Props): JSX.Element {
   const { rotation = 0, children } = props;
-  const context = useCanvasContext();
 
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     context.rotate(rotation);
   });

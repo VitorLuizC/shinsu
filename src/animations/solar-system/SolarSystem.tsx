@@ -1,16 +1,15 @@
 import { Suspense } from 'react';
-import { Animation, useAnimationEffect } from 'lib/animation';
-import { Canvas, useCanvasContext } from 'lib/canvas';
+import { Animation } from 'lib/animation';
+import { Canvas } from 'lib/canvas';
 import { Rotate, Translate } from 'lib/transform';
 import Earth from './Earth';
 import Sun from './Sun';
 import Moon from './Moon';
 import { Circle } from 'lib/shape';
+import { useRender } from 'lib/renderer';
 
 function SolarSystem(): JSX.Element {
-  const context = useCanvasContext();
-
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
   });
 

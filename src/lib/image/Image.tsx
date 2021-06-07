@@ -1,5 +1,4 @@
-import { useAnimationEffect } from 'lib/animation';
-import { useCanvasContext } from 'lib/canvas';
+import { useRender } from 'lib/renderer';
 
 type Props = {
   width?: number;
@@ -13,8 +12,6 @@ type Props = {
 };
 
 function Image(props: Props): null {
-  const context = useCanvasContext();
-
   const {
     source,
     rotate,
@@ -26,7 +23,7 @@ function Image(props: Props): null {
     positionY = 0,
   } = props;
 
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     if (rotate !== undefined)
       context.rotate(rotate);

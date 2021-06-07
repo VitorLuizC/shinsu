@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
-import { useCanvasContext } from 'lib/canvas';
 import Restore from './Restore';
-import { useAnimationEffect } from 'lib/animation';
+import { useRender } from 'lib/renderer';
 
 type Props = {
   scaleX?: number;
@@ -15,9 +14,8 @@ function Scale(props: Props): JSX.Element {
     scaleY = 1,
     children,
   } = props;
-  const context = useCanvasContext();
 
-  useAnimationEffect(() => {
+  useRender((context) => {
     context.save();
     context.scale(scaleX, scaleY);
   });
