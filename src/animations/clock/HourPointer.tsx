@@ -1,16 +1,16 @@
 import { Line } from 'lib/shape';
 import { Rotate } from 'lib/transform';
 
-type Props = {
-  time: Date;
-};
-
 function getHours(time: Date): number {
   const hours = time.getHours();
   if (hours < 12)
     return hours;
   return hours - 12;
 }
+
+type Props = {
+  time: Date;
+};
 
 function HourPointer({ time }: Props): JSX.Element {
   const rotation = (

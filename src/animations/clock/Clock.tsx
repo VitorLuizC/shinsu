@@ -1,12 +1,11 @@
+import { useRender } from 'lib/renderer';
 import { Rotate, Scale, Translate } from 'lib/transform';
-import { Radian } from 'lib/unit';
 import Border from './Border';
 import HourMark from './HourMark';
 import MinuteMark from './MinuteMark';
 import MinutePointer from './MinutePointer';
 import HourPointer from './HourPointer';
 import SecondPointer from './SecondPointer';
-import { Renderer, useRender } from 'lib/renderer';
 
 function range(from: number, to: number): number[] {
   return Array.from(Array(to - from), (_, index) => index + from);
@@ -22,7 +21,7 @@ function Clock() {
   return (
     <Translate center>
       <Scale scaleX={0.4} scaleY={0.4}>
-        <Rotate rotation={Radian.fromDegree(-90)}>
+        <Rotate rotation={Math.PI / 2}>
           <Border />
           {range(0, 12).map((hour) => (
             <HourMark hour={hour} />
@@ -39,12 +38,4 @@ function Clock() {
   );
 }
 
-function App(): JSX.Element {
-  return (
-    <Renderer width={150} height={150} framesPerSecond={1}>
-      <Clock />
-    </Renderer>
-  );
-}
-
-export default App;
+export default Clock;

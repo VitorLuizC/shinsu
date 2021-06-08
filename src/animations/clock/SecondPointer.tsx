@@ -20,7 +20,7 @@ function SecondPointer({ time }: Props): JSX.Element {
         strokeColor={color}
       />
       <Circle size={20} positionX={95} strokeColor={color} strokeWidth={6} />
-      <Circle size={6} fillColor={color} />
+      <Circle size={20} fillColor={color} />
     </Rotate>
   );
 }
