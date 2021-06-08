@@ -1,8 +1,9 @@
+import 'context';
 import { Route, BrowserRouter } from 'react-router-dom';
-import Logo from 'animations/logo/Logo';
-import SolarSystem from 'animations/solar-system/SolarSystem';
+import Logo from 'animations/logo/App';
+import SolarSystem from 'animations/solar-system/App';
 import Order from 'experiments/order/Order';
-import Clock from 'animations/clock/Clock';
+import Clock from 'animations/clock/App';
 
 function App() {
   return (
