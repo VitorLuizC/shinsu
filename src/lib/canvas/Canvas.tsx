@@ -1,13 +1,14 @@
-import { ReactNode, useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import { createContext, ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
 import { useIdentify } from 'lib/identity';
-import CanvasContext from './CanvasContext';
 import createCanvas from './createCanvas';
 import createCanvasContext from './createCanvasContext';
 
-type Props = {
-  children: ReactNode;
+export const CanvasContext = createContext<null | CanvasRenderingContext2D>(null);
+
+export type Props = {
   width?: number;
   height?: number;
+  children: ReactNode;
 };
 
 function Canvas(props: Props): JSX.Element {
@@ -46,10 +47,8 @@ function Canvas(props: Props): JSX.Element {
     container.prepend(canvas);
   }, [canvas]);
 
-  const value = useMemo(() => ({ canvas, context }), [canvas, context]);
-
   return (
-    <CanvasContext.Provider value={value}>
+    <CanvasContext.Provider value={context}>
       <div ref={containerRef} className="Canvas">
         {children}
       </div>
