@@ -3,7 +3,7 @@ import { Circle } from 'lib/shape';
 
 const distance = 28.5;
 
-export default function Moon() {
+function Moon(): JSX.Element {
   const date = new Date();
 
   const rotate = (
@@ -27,3 +27,5 @@ export default function Moon() {
     </>
   );
 }
+
+export default Moon;

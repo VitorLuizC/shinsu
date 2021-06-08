@@ -1,6 +1,6 @@
 import { LazyImage } from 'lib/image';
 
-export default function Earth() {
+function Earth(): JSX.Element {
   return (
     <LazyImage
       uri="https://mdn.mozillademos.org/files/1429/Canvas_earth.png"
@@ -9,3 +9,5 @@ export default function Earth() {
     />
   );
 }
+
+export default Earth;
