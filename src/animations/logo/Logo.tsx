@@ -1,14 +1,11 @@
-import 'context';
-
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { LazyImage } from 'lib/image';
-
-import LOGO_URL from './logo.svg';
 import { Rotate } from 'lib/transform';
 import { Radian } from 'lib/unit';
-import { Renderer, useRender } from 'lib/renderer';
+import { useRender } from 'lib/renderer';
+import LOGO_URL from './logo.svg';
 
-function Logo(): JSX.Element | null {
+function Logo(): JSX.Element {
   const [{ rotation }, setRotation] = useState(() => ({
     rotation: 0,
     clockwise: true,
@@ -34,15 +31,4 @@ function Logo(): JSX.Element | null {
   );
 }
 
-
-function Main(): JSX.Element | null {
-  return (
-    <Renderer width={841.9} height={595.3}>
-      <Suspense fallback={<p>Carregando...</p>}>
-        <Logo />
-      </Suspense>
-    </Renderer>
-  );
-}
-
-export default Main;
+export default Logo;
