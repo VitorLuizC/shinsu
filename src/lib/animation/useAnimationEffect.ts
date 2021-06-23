@@ -1,10 +1,11 @@
 import { useContext, useLayoutEffect } from 'react'
+import { useSingleton } from 'lib/function';
 import AnimationContext from './AnimationContext'
-import useSingleton from './useSingleton';
 
-function useAnimationEffect(operation: FrameRequestCallback) {
+function useAnimationEffect(operation: FrameRequestCallback): void {
   const context = useContext(AnimationContext);
 
+  // Single instance function (singleton) that runs the most up-to-date effect.
   const singleton = useSingleton(operation);
 
   useLayoutEffect(

@@ -1,7 +1,6 @@
 import { useCallback, useRef } from 'react';
 import type AnyFunction from './AnyFunction';
-
-type Singleton<F extends AnyFunction> = (...args: Parameters<F>) => ReturnType<F>;
+import type Singleton from './Singleton';
 
 function useSingleton<C extends AnyFunction>(callback: C): Singleton<C> {
   const callbackRef = useRef(callback);
