@@ -1,14 +1,12 @@
 import { Rotate, Translate } from 'lib/transform';
 import { Circle } from 'lib/shape';
-import { useRender } from 'lib/renderer';
 import Earth from './Earth';
 import Sun from './Sun';
 import Moon from './Moon';
+import useAnimation from 'lib/animation/useAnimation';
 
 function SolarSystem(): JSX.Element {
-  useRender((context) => {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-  });
+  useAnimation({ framesPerSecond: 0 });
 
   const date = new Date();
 

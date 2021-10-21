@@ -1,8 +1,6 @@
 const Context = CanvasRenderingContext2D.prototype;
 
-const DEBUG = true;
-
-if (DEBUG) {
+if (process.env.NODE_ENV !== 'production') {
   Object.keys(Context).forEach((key) => {
     const descriptor = Object.getOwnPropertyDescriptor(Context, key);
   
@@ -19,12 +17,11 @@ if (DEBUG) {
   
     // Logs context's attribute assignments.
     if (descriptor?.set) {
-      const setter = descriptor.set;
       Object.defineProperty(Context, key, {
         ...descriptor,
         set(value) {
           console.log(`context.${key} = ${JSON.stringify(value)}`);
-          setter.call(this, value);
+          descriptor.set!.call(this, value);
         },
       });
     }

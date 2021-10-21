@@ -8,7 +8,7 @@ export type CycleContextValue = {
 
 const CycleContext = createContext<CycleContextValue>({
   runCycle() {
-    // Does nothing, because operations are already run in 'runInCycle'.
+    // Does nothing, because operations were already run in 'runInCycle'.
   },
 
   runInCycle(operation) {

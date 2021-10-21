@@ -1,11 +1,12 @@
-import { useAnimationEffect } from 'lib/animation';
 import { useCanvasContext } from 'lib/canvas';
+import { useCycle } from 'lib/cycle';
 import type Render from './Render';
 
 function useRender(render: Render) {
   const context = useCanvasContext();
+  const { runInCycle } = useCycle();
 
-  useAnimationEffect((time) => render(context, time));
+  runInCycle((time) => render(context, time));
 }
 
 export default useRender;
