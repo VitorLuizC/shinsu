@@ -24,10 +24,10 @@ function Clock() {
         <Rotate rotation={Math.PI / 2}>
           <Border />
           {range(0, 12).map((hour) => (
-            <HourMark hour={hour} />
+            <HourMark key={hour} hour={hour} />
           ))}
           {range(0, 60).map((minute) => (
-            <MinuteMark minute={minute} />
+            <MinuteMark key={minute} minute={minute} />
           ))}
           <HourPointer time={time} />
           <MinutePointer time={time} />
