@@ -1,6 +1,7 @@
 import { useCanvasContext } from 'lib/canvas';
 import { useCycle } from 'lib/cycle';
 import { useSingleton } from 'lib/function';
+import { isStrictModeDoubleInvokation } from 'lib/life-cycle';
 import { useLayoutEffect } from 'react';
 import type RenderCallback from './RenderCallback';
 
@@ -11,7 +12,7 @@ function useRenderInCycle(render: RenderCallback): void {
 
   const operation = useSingleton(() => render(context));
 
-  runInCycle(operation);
+  if (!isStrictModeDoubleInvokation()) runInCycle(operation);
 
   useLayoutEffect(
     () => () => removeFromCycle(operation),
