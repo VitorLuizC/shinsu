@@ -19,7 +19,7 @@ function App(): JSX.Element {
   return (
     <Animation width={300} height={300} framesPerSecond={120}>
       {({ time, framesPerSecond }) => (
-        <Suspense fallback={<p>Carregando...</p>}>
+        <Suspense fallback={<p style={{ position: 'fixed' }}>Carregando...</p>}>
           <p style={{ position: 'fixed' }}>{framesPerSecond.toFixed(2)}</p>
           <Sun />
           <Translate center>
