@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
+import {
+  createContext,
+  forwardRef,
+  ReactNode,
+  useCallback,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+} from 'react';
 import { useIdentify } from 'lib/identity';
 import createCanvas from './createCanvas';
 import createCanvasContext from './createCanvasContext';
@@ -11,49 +19,54 @@ export type Props = {
   children: ReactNode;
 };
 
-function Canvas(props: Props): JSX.Element {
-  const {
-    width = 640,
-    height = 480,
-    children,
-  } = props;
+const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
+  // function' keyword was used to prevent 'displayName' assignment.
+  function Canvas(props, ref): JSX.Element {
+    const {
+      width = 640,
+      height = 480,
+      children,
+    } = props;
 
-  const identify = useIdentify();
+    const identify = useIdentify();
 
-  const canvasRef = useRef<HTMLCanvasElement>();
+    const canvasRef = useRef<HTMLCanvasElement>();
 
-  const contextRef = useRef<CanvasRenderingContext2D>();
+    const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
+      id: identify('canvas'),
+      width,
+      height,
+      className: 'Canvas__canvas',
+    }));
 
-  const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
-    id: identify('canvas'),
-    width,
-    height,
-    className: 'Canvas__canvas',
-  }));
+    const contextRef = useRef<CanvasRenderingContext2D>();
 
-  const context = contextRef.current ?? (contextRef.current = createCanvasContext(canvas));
+    const context = contextRef.current ?? (contextRef.current = createCanvasContext(canvas));
 
-  useLayoutEffect(() => {
-    if (canvas.width !== width)
-      canvas.width = width;
+    useLayoutEffect(() => {
+      if (canvas.width !== width)
+        canvas.width = width;
 
-    if (canvas.height !== height)
-      canvas.height = height;
-  }, [canvas, width, height]);
+      if (canvas.height !== height)
+        canvas.height = height;
+    }, [canvas, width, height]);
 
-  const containerRef = useCallback((container: null | HTMLDivElement) => {
-    if (!container) return;
+    const containerRef = useCallback((container: null | HTMLDivElement) => {
+      if (!container) return;
 
-    container.prepend(canvas);
-  }, [canvas]);
+      container.prepend(canvas);
+    }, [canvas]);
 
-  return (
-    <CanvasContext.Provider value={context}>
-      <div ref={containerRef} className="Canvas">
-        {children}
-      </div>
-    </CanvasContext.Provider>
-  );
-}
+    useImperativeHandle(ref, () => context);
+
+    return (
+      <CanvasContext.Provider value={context}>
+        <div ref={containerRef} className="Canvas">
+          {children}
+        </div>
+      </CanvasContext.Provider>
+    );
+  },
+);
 
 export default Canvas;
