@@ -1,43 +1,62 @@
-import { ReactNode, useMemo, useRef, useState } from 'react';
-import AnimationContext from './AnimationContext';
+import { ComponentProps, ReactNode, useRef, useState } from 'react';
+import { Canvas } from 'lib/canvas';
+import { Cycle, CycleContextValue } from 'lib/cycle';
 import useAnimationFrame from './useAnimationFrame';
 
-type Props = {
-  children?: ReactNode;
+type CanvasProps = Omit<ComponentProps<typeof Canvas>, 'children'>;
+
+type ChildrenProps = {
+  time: number;
+  framesPerSecond: number;
+};
+
+type Props = CanvasProps & {
+  children: (props: ChildrenProps) => ReactNode;
   framesPerSecond?: number;
 };
 
-function Animation(props: Props) {
-  const { children, framesPerSecond } = props;
+function Animation(props: Props): JSX.Element {
+  const { children, framesPerSecond, ...canvasProps } = props;
 
-  const [state, setState] = useState(() => ({
+  const cycleRef = useRef<null | CycleContextValue>(null);
+  const contextRef = useRef<null | CanvasRenderingContext2D>(null);
+
+  const [state, setState] = useState<ChildrenProps>(() => ({
     time: window.performance.now(),
     framesPerSecond: 0,
   }));
 
-  const operationsRef = useRef<Set<FrameRequestCallback>>();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const operations = operationsRef.current ?? (operationsRef.current = new Set());
-
-  useAnimationFrame((currentTime) => {
-    const currentFramesPerSecond = 1000 / (currentTime - state.time)
+  useAnimationFrame((time) => {
+    const currentFramesPerSecond = 1000 / (time - state.time)
 
     if (framesPerSecond !== undefined && framesPerSecond < currentFramesPerSecond)
       return;
 
-    setState({ time: currentTime, framesPerSecond: currentFramesPerSecond });
-    console.clear();
-    operations.forEach((operation) => operation(currentTime));
-    operations.clear();
+    setState({
+      time,
+      framesPerSecond: currentFramesPerSecond,
+    });
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.clear();
+    }
+
+    contextRef.current?.clearRect(
+      0,
+      0,
+      contextRef.current.canvas.width,
+      contextRef.current.canvas.height,
+    );
+
+    cycleRef.current?.runCycle(time);
   });
 
-  const value = useMemo(() => ({ time: state.time, operations }), [state, operations]);
-
   return (
-    <AnimationContext.Provider value={value}>
-      {children}
-    </AnimationContext.Provider>
+    <Canvas {...canvasProps} ref={contextRef}>
+      <Cycle ref={cycleRef}>
+        {children(state)}
+      </Cycle>
+    </Canvas>
   );
 }
 

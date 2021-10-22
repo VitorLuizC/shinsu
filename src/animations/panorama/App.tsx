@@ -1,19 +1,11 @@
-import { Renderer, useRender } from 'lib/renderer';
-
-function Panorama() {
-  useRender((context) => {
-    context.restore();
-  });
-
-  return null;
-}
+import Animation from 'lib/animation/Animation';
 
 function App() {
   return (
-    <Renderer>
-      <Panorama />
-    </Renderer>
-  )
+    <Animation>
+      {() => null}
+    </Animation>
+  );
 }
 
 export default App;
