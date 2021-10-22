@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Restore from './Restore';
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 
 type Props = {
   rotation?: number;
@@ -10,7 +10,7 @@ type Props = {
 function Rotate(props: Props): JSX.Element {
   const { rotation = 0, children } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     context.rotate(rotation);
   });

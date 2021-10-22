@@ -1,4 +1,4 @@
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 import type Color from './Color';
 
 type Props = {
@@ -22,7 +22,7 @@ function Line(props: Props): null {
     strokeColor,
   } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     if (cap !== undefined)
       context.lineCap = cap;

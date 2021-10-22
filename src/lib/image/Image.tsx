@@ -1,4 +1,4 @@
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 
 type Props = {
   width?: number;
@@ -23,7 +23,7 @@ function Image(props: Props): null {
     positionY = 0,
   } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     if (rotate !== undefined)
       context.rotate(rotate);

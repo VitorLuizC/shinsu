@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Restore from './Restore';
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 
 type Props = {
   scaleX?: number;
@@ -15,7 +15,7 @@ function Scale(props: Props): JSX.Element {
     children,
   } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     context.scale(scaleX, scaleY);
   });

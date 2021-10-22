@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Restore from './Restore';
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 
 type Props = {
   x?: number;
@@ -17,7 +17,7 @@ function Translate(props: Props): JSX.Element {
     children,
   } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     if (center)
       context.translate(context.canvas.width / 2, context.canvas.height / 2);

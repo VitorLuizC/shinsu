@@ -1,7 +1,7 @@
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 
 function Restore(): null {
-  useRender((context) => context.restore());
+  useRenderInCycle((context) => context.restore());
 
   return null;
 }

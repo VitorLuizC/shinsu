@@ -1,4 +1,4 @@
-import { useRender } from 'lib/renderer';
+import { useRenderInCycle } from 'lib/render';
 import type Color from './Color';
 
 type Props = {
@@ -20,7 +20,7 @@ function Circle(props: Props): null {
     positionY = 0,
   } = props;
 
-  useRender((context) => {
+  useRenderInCycle((context) => {
     context.save();
     context.beginPath();
 
