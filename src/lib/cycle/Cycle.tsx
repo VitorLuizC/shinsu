@@ -23,6 +23,9 @@ const Cycle = forwardRef<Ref, Props>(
       runInCycle(operation) {
         operations.add(operation);
       },
+      removeFromCycle(operation) {
+        operations.delete(operation);
+      },
     }), [operations]);
 
     useImperativeHandle(ref, () => value, [value]);
