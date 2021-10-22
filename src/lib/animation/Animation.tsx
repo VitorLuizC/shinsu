@@ -29,7 +29,12 @@ function Animation(props: Props): JSX.Element {
   useAnimationFrame((time) => {
     const currentFramesPerSecond = 1000 / (time - state.time)
 
-    if (framesPerSecond !== undefined && framesPerSecond < currentFramesPerSecond)
+    // It's not first frame and there's an expected 'framePerSecond' that is below current FPS.
+    if (
+      state.framesPerSecond !== 0 &&
+      framesPerSecond !== undefined &&
+      framesPerSecond < currentFramesPerSecond
+    )
       return;
 
     setState({
