@@ -5,6 +5,7 @@ import SolarSystem from 'animations/solar-system/App';
 import Order from 'experiments/order/Order';
 import Clock from 'animations/clock/App';
 import Bubbles from 'animations/bubbles/App';
+import Breakout from 'animations/Breakout/Breakout';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/animations/bubbles" component={Bubbles} />
       <Route path="/animations/solar-system" component={SolarSystem} />
       <Route path="/animations/clock" component={Clock} />
+      <Route path="/animations/breakout" component={Breakout} />
       <Route path="/experiments/order" component={Order} />
     </BrowserRouter>
   );
