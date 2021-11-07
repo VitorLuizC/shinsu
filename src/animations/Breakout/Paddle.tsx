@@ -1,83 +1,70 @@
 import { useState } from 'react';
 import { useRenderInCycle } from 'lib/render';
 import { Rectangle } from 'lib/shape';
+import type Bounds from './types/Bounds';
 import usePressingKey from './hooks/usePressingKey';
-
-export type Bounds = {
-  top: number;
-  left: number;
-  right: number;
-  bottom: number;
-};
 
 type Props = {
   bounds: Bounds;
 };
 
-enum Direction { NONE, LEFT, RIGHT }
+enum Direction { NONE, LEFT, RIGHT };
 
-type Movement = {
-  position: number;
+type State = {
   duration: number;
   direction: Direction;
+  positionX: number;
 };
 
 function Paddle(props: Props): JSX.Element {
   const { bounds } = props;
 
-  const [movement, setMoviment] = useState<Movement>(() => ({
-    position: (bounds.right - Paddle.WIDTH) / 2,
+  const [state, setState] = useState<State>(() => ({
     duration: 0,
     direction: Direction.NONE,
+    positionX: (bounds.right - Paddle.WIDTH) / 2,
   }));
 
-  const updateMovement = (direction: Direction): void => {
-    const duration = (
-      movement.direction === direction
-        ? movement.duration + 1
-        : 0
-    );
+  const moveTo = (direction: Direction) => setState((state) => {
+    const duration = state.direction === direction ? state.duration + 1.25 : 0;
 
-    // Calcs next position
+    // Calcs next 'positionX' based on direction and movement duration.
 
-    let position = movement.position;
+    let positionX = state.positionX;
 
     if (direction === Direction.RIGHT) {
       const bound = bounds.right - Paddle.WIDTH;
 
-      position = position + duration;
+      positionX = Math.floor(positionX + duration);
 
-      if (position > bound) {
-        position = bound;
-      }
+      if (positionX > bound)
+        positionX = bound;
     }
 
     if (direction === Direction.LEFT) {
-      position = position - duration;
+      positionX = Math.floor(positionX - duration);
 
-      if (position < bounds.left) {
-        position = bounds.left;
-      }
+      if (positionX < bounds.left)
+        positionX = bounds.left;
     }
 
-    setMoviment({ duration, position, direction });
-  };
+    return { duration, direction, positionX };
+  });
 
   const key = usePressingKey();
 
   useRenderInCycle(() => {
-    if (key === 'ArrowRight') {
-      updateMovement(Direction.RIGHT);
-    } else if (key === 'ArrowLeft') {
-      updateMovement(Direction.LEFT);
-    } else {
-      updateMovement(Direction.NONE);
-    }
+    if (key === 'ArrowRight')
+      moveTo(Direction.RIGHT);
+    else if (key === 'ArrowLeft')
+      moveTo(Direction.LEFT);
+    else
+      moveTo(Direction.NONE);
   });
 
   return (
     <Rectangle
-      positionX={movement.position}
+      positionX={state.positionX}
       positionY={bounds.top}
       width={Paddle.WIDTH}
       height={Paddle.HEIGHT}
