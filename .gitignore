@@ -1,9 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Unversioned files and folders.
+# Read more at https://git-scm.com/docs/gitignore.
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage
@@ -21,3 +20,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Yarn's lockfile, Plug'n'Play, folder and settings.
+# We're using pnpm, and it provides its lockfile and settings.
+yarn.lock
+.pnp.*
+.yarn/
+.yarnrc
+.yarnrc.yaml
+
+# npm's lockfiles.
+# We're using pnpm and it provides its own lockfile.
+package-lock.json
+npm-shrinkwrap.json
