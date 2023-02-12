@@ -1,5 +1,5 @@
 {
-  "name": "shinsu",
+  "name": "@shinsu/root",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
