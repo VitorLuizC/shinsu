@@ -8,15 +8,17 @@ import type RenderCallback from './RenderCallback';
 function useRenderInCycle(render: RenderCallback): void {
   const context = useCanvasContext();
 
-  const { runInCycle, removeFromCycle } = useCycle();
+  const operations = useCycle();
 
   const operation = useSingleton(() => render(context));
 
-  if (!isStrictModeDoubleInvokation()) runInCycle(operation);
+  if (!isStrictModeDoubleInvokation()) operations.add(operation);
 
   useLayoutEffect(
-    () => () => removeFromCycle(operation),
-    [operation, removeFromCycle],
+    () => () => {
+      operations.delete(operation);
+    },
+    [operation, operations],
   );
 }
 

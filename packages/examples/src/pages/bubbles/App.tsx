@@ -8,7 +8,7 @@ function App(): JSX.Element {
 
   return (
     <Animation {...size} framesPerSecond={16}>
-      {() => <Bubbles />}
+      <Bubbles />
     </Animation>
   );
 }

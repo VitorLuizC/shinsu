@@ -40,7 +40,7 @@ function Logo() {
 function App(): JSX.Element {
   return (
     <Animation width={841.9} height={595.3}>
-      {() => <Logo />}
+      <Logo />
     </Animation>
   );
 }

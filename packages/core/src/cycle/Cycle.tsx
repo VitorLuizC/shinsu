@@ -13,27 +13,12 @@ const Cycle = forwardRef<Ref, Props>(
   function Cycle(props, ref): JSX.Element {
     const { children } = props;
 
-    const operations = useMemo(() => new Set<CycleOperation>(), []);
-
-    const value = useMemo<CycleContextValue>(() => ({
-      runCycle(time) {
-        operations.forEach((operation) => operation(time));
-        operations.clear();
-      },
-      runInCycle(operation) {
-        operations.add(operation);
-      },
-      removeFromCycle(operation) {
-        operations.delete(operation);
-      },
-    }), [operations]);
+    const value = useMemo(() => new Set<CycleOperation>(), []);
 
     useImperativeHandle(ref, () => value, [value]);
 
     return (
-      <CycleContext.Provider value={value}>
-        {children}
-      </CycleContext.Provider>
+      <CycleContext.Provider value={value}>{children}</CycleContext.Provider>
     );
   },
 );

@@ -1,7 +1,7 @@
 import { Animation } from '@shinsu/core';
 
 function App() {
-  return <Animation>{() => null}</Animation>;
+  return <Animation />;
 }
 
 export default App;
