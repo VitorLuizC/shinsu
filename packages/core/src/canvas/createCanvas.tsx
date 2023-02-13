@@ -8,9 +8,10 @@ export type Options = {
 function createCanvas({ id, width, height, className }: Options): HTMLCanvasElement {
   const canvas = window.document.createElement('canvas');
 
-  canvas.id = id;
-  canvas.width = width;
-  canvas.height = height;
+  canvas.setAttribute('id', id);
+  canvas.setAttribute('width', width.toString(10));
+  canvas.setAttribute('height', height.toString(10));
+
   canvas.classList.add(className);
 
   return canvas;

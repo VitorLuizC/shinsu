@@ -45,10 +45,10 @@ const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
 
     useLayoutEffect(() => {
       if (canvas.width !== width)
-        canvas.width = width;
+        canvas.setAttribute('width', width.toString(10));
 
       if (canvas.height !== height)
-        canvas.height = height;
+        canvas.setAttribute('height', height.toString(10));
     }, [canvas, width, height]);
 
     const containerRef = useCallback((container: null | HTMLDivElement) => {
