@@ -32,16 +32,16 @@ const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
 
     const canvasRef = useRef<HTMLCanvasElement>();
 
-    const canvas = canvasRef.current ?? (canvasRef.current = createCanvas({
+    const canvas = canvasRef.current ??= createCanvas({
       id: identify('canvas'),
       width,
       height,
       className: 'Canvas__canvas',
-    }));
+    });
 
     const contextRef = useRef<CanvasRenderingContext2D>();
 
-    const context = contextRef.current ?? (contextRef.current = createCanvasContext(canvas));
+    const context = contextRef.current ??= createCanvasContext(canvas);
 
     useLayoutEffect(() => {
       if (canvas.width !== width)
