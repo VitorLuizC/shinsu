@@ -1,7 +1,12 @@
 {
   "name": "@shinsu/core",
   "version": "0.1.0",
-  "exports": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "module": "./dist/main.js",
+  "exports": {
+    "import": "./dist/main.js",
+    "types": "./dist/main.d.ts"
+  },
   "scripts": {
     "build": "tsc -p ./tsconfig.json"
   },
