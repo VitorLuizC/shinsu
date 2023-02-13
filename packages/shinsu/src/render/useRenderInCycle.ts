@@ -1,7 +1,7 @@
-import { useCanvasContext } from 'lib/canvas';
-import { useCycle } from 'lib/cycle';
-import { useSingleton } from 'lib/function';
-import { isStrictModeDoubleInvokation } from 'lib/life-cycle';
+import { useCanvasContext } from '../canvas';
+import { useCycle } from '../cycle';
+import { useSingleton } from '../function';
+import { isStrictModeDoubleInvokation } from '../life-cycle';
 import { useLayoutEffect } from 'react';
 import type RenderCallback from './RenderCallback';
 

@@ -1,0 +1,8 @@
+# Unversioned files and folders.
+# Read more at https://git-scm.com/docs/gitignore.
+
+# Node.js modules.
+/node_modules
+
+# Generated JavaScript files and type declarations.
+/dist

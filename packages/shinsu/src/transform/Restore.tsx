@@ -1,4 +1,4 @@
-import { useRenderInCycle } from 'lib/render';
+import { useRenderInCycle } from '../render';
 
 function Restore(): null {
   useRenderInCycle((context) => context.restore());

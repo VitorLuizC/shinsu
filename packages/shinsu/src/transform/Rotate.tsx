@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import Restore from './Restore';
-import { useRenderInCycle } from 'lib/render';
+import { useRenderInCycle } from '../render';
 
 type Props = {
   rotation?: number;

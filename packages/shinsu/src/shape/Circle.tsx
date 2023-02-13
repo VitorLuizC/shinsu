@@ -1,9 +1,8 @@
-import { useRenderInCycle } from 'lib/render';
+import { useRenderInCycle } from '../render';
 import type Color from './Color';
 
 type Props = {
-  width: number;
-  height: number;
+  size: number;
   fillColor?: Color;
   positionX?: number;
   positionY?: number;
@@ -11,10 +10,9 @@ type Props = {
   strokeColor?: Color;
 };
 
-function Rectangle(props: Props): null {
+function Circle(props: Props): null {
   const {
-    width,
-    height,
+    size = 0,
     fillColor,
     strokeColor,
     strokeWidth,
@@ -35,7 +33,7 @@ function Rectangle(props: Props): null {
     if (strokeWidth !== undefined)
       context.lineWidth = strokeWidth;
 
-    context.rect(positionX, positionY, width, height);
+    context.arc(positionX, positionY, size / 2, 0, Math.PI * 2, false);
 
     if (fillColor !== undefined)
       context.fill();
@@ -49,4 +47,4 @@ function Rectangle(props: Props): null {
   return null;
 }
 
-export default Rectangle;
+export default Circle;

@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode, useRef, useState } from 'react';
-import { Canvas } from 'lib/canvas';
-import { Cycle, CycleContextValue } from 'lib/cycle';
+import { Canvas } from '../canvas';
+import { Cycle, CycleContextValue } from '../cycle';
 import useAnimationFrame from './useAnimationFrame';
 
 type CanvasProps = Omit<ComponentProps<typeof Canvas>, 'children'>;

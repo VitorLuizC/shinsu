@@ -7,7 +7,7 @@ import {
   useLayoutEffect,
   useRef,
 } from 'react';
-import { useIdentify } from 'lib/identity';
+import { useIdentify } from '../identity';
 import createCanvas from './createCanvas';
 import createCanvasContext from './createCanvasContext';
 

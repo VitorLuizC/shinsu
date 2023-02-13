@@ -1,5 +1,5 @@
 import { ComponentProps, lazy, useMemo } from 'react';
-import { fetchSource } from 'lib/source';
+import { fetchSource } from '../source';
 import Image from './Image';
 
 type ImageProps = Omit<ComponentProps<typeof Image>, 'source'>;
