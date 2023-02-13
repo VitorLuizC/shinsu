@@ -42,9 +42,9 @@ function Animation(props: Props): JSX.Element {
       framesPerSecond: currentFramesPerSecond,
     });
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.clear();
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   console.clear();
+    // }
 
     contextRef.current?.clearRect(
       0,
