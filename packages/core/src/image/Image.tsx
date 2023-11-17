@@ -25,10 +25,13 @@ function Image(props: Props): null {
 
   useRenderInCycle((context) => {
     context.save();
+
     if (rotate !== undefined)
       context.rotate(rotate);
+
     if (translateX !== undefined || translateY !== undefined)
       context.translate(translateX ?? 0, translateY ?? 0);
+
     context.drawImage(source, positionX, positionY, width, height);
     context.restore();
   });

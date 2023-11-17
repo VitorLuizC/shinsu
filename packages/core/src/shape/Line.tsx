@@ -24,18 +24,26 @@ function Line(props: Props): null {
 
   useRenderInCycle((context) => {
     context.save();
+
     if (cap !== undefined)
       context.lineCap = cap;
+
     if (width)
       context.lineWidth = width;
+
     if (strokeColor !== undefined)
       context.strokeStyle = strokeColor;
+
     context.beginPath();
+
     if (positionX !== undefined || positionY !== undefined)
       context.moveTo(positionX ?? 0, positionY ?? 0);
+
     context.lineTo(toX, toY);
+
     if (strokeColor !== undefined)
       context.stroke();
+
     context.closePath();
     context.restore();
   });

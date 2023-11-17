@@ -12,6 +12,7 @@ function LazyImage({ uri, ...props }: Props): JSX.Element {
   const Lazy = useMemo(() => {
     return lazy(async () => {
       const source = await fetchSource(uri, 'image');
+
       return {
         default: (props: ImageProps) => <Image {...props} source={source} />,
       };

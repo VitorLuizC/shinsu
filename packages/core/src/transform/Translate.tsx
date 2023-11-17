@@ -19,6 +19,7 @@ function Translate(props: Props): JSX.Element {
 
   useRenderInCycle((context) => {
     context.save();
+
     if (center)
       context.translate(context.canvas.width / 2, context.canvas.height / 2);
     else

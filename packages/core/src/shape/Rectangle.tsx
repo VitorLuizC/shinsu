@@ -42,6 +42,7 @@ function Rectangle(props: Props): null {
 
     if (strokeColor !== undefined || strokeWidth !== undefined)
       context.stroke();
+
     context.closePath();
     context.restore();
   });

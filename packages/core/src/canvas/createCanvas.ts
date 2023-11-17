@@ -5,7 +5,9 @@ export type Options = {
   className: string;
 };
 
-function createCanvas({ id, width, height, className }: Options): HTMLCanvasElement {
+function createCanvas(options: Options): HTMLCanvasElement {
+  const { id, width, height, className } = options
+
   const canvas = window.document.createElement('canvas');
 
   canvas.setAttribute('id', id);

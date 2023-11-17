@@ -1,13 +1,12 @@
 import { useCallback, useRef } from 'react';
 import type AnyFunction from './AnyFunction';
-import type IdentityOf from './IdentityOf';
 
-function useSingleton<C extends AnyFunction>(callback: C): IdentityOf<C> {
+function useSingleton<C extends AnyFunction>(callback: C): C {
   const callbackRef = useRef(callback);
 
   callbackRef.current = callback;
 
-  return useCallback((...args) => callbackRef.current(...args), []);
+  return useCallback<C>(((...args) => callbackRef.current(...args)) as C, []);
 }
 
 export default useSingleton;

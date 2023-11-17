@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode, useImperativeHandle, useMemo } from 'react';
+import { forwardRef, ReactNode, useImperativeHandle, useRef } from 'react';
 import CycleContext, { CycleContextValue } from './CycleContext';
 import type CycleOperation from './CycleOperation';
 
@@ -13,7 +13,9 @@ const Cycle = forwardRef<Ref, Props>(
   function Cycle(props, ref): JSX.Element {
     const { children } = props;
 
-    const value = useMemo(() => new Set<CycleOperation>(), []);
+    const valueRef = useRef<CycleContextValue | null>(null);
+
+    const value = valueRef.current ??= new Set<CycleOperation>();
 
     useImperativeHandle(ref, () => value, [value]);
 
