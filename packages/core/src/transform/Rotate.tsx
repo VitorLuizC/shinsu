@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import Restore from './Restore';
 import { useRenderInCycle } from '../render';
 
@@ -7,7 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
-function Rotate(props: Props): JSX.Element {
+function Rotate(props: Props): ReactElement {
   const { rotation = 0, children } = props;
 
   useRenderInCycle((context) => {

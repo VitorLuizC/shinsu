@@ -1,6 +1,6 @@
-import { forwardRef, ReactNode, useImperativeHandle, useRef } from 'react';
-import CycleContext, { CycleContextValue } from './CycleContext';
-import type CycleOperation from './CycleOperation';
+import { forwardRef, type ReactElement, type ReactNode, useImperativeHandle, useRef } from 'react';
+import CycleContext, { type CycleContextValue } from './CycleContext';
+import type { CycleOperation } from './CycleOperation';
 
 type Ref = CycleContextValue;
 
@@ -10,7 +10,7 @@ type Props = {
 
 const Cycle = forwardRef<Ref, Props>(
   // 'function' keyword was used to prevent 'displayName' assignment.
-  function Cycle(props, ref): JSX.Element {
+  function Cycle(props, ref): ReactElement {
     const { children } = props;
 
     const valueRef = useRef<CycleContextValue | null>(null);

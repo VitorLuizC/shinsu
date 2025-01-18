@@ -1,6 +1,6 @@
-import { ComponentProps, ReactNode, useRef } from 'react';
+import { type ComponentProps, type ReactElement, type ReactNode, useRef } from 'react';
 import { Canvas } from '../canvas';
-import { Cycle, CycleContextValue } from '../cycle';
+import { Cycle, type CycleContextValue } from '../cycle';
 import useAnimationFrame from './useAnimationFrame';
 
 type CanvasProps = Omit<ComponentProps<typeof Canvas>, 'children'>;
@@ -15,7 +15,7 @@ type Props = CanvasProps & {
   framesPerSecond?: number;
 };
 
-function Animation(props: Props): JSX.Element {
+function Animation(props: Props): ReactElement {
   const { children, framesPerSecond, ...canvasProps } = props;
 
   const cycleRef = useRef<null | CycleContextValue>(null);

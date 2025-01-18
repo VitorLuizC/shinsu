@@ -1,3 +1,1 @@
-type SourceType = 'image' | 'audio' | 'video';
-
-export default SourceType;
+export type SourceType = 'image' | 'audio' | 'video';

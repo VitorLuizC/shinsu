@@ -1,3 +1,1 @@
-type RenderCallback = (context: CanvasRenderingContext2D) => void;
-
-export default RenderCallback;
+export type RenderCallback = (context: CanvasRenderingContext2D) => void;

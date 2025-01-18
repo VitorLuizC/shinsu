@@ -1,5 +1,5 @@
-import type Source from './Source';
-import type SourceType from './SourceType';
+import type { Source } from './Source';
+import type { SourceType } from './SourceType';
 
 function createSource(type: 'image'): HTMLImageElement;
 function createSource(type: 'audio'): HTMLAudioElement;

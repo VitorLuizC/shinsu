@@ -1,5 +1,5 @@
-import type Source from './Source';
-import type SourceType from './SourceType';
+import type { Source } from './Source';
+import type { SourceType } from './SourceType';
 import createSource from './createSource';
 
 function fetchSource(uri: string, type: 'image'): Promise<HTMLImageElement>;

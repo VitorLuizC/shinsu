@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import Restore from './Restore';
 import { useRenderInCycle } from '../render';
 
@@ -9,7 +9,7 @@ type Props = {
   children: ReactNode;
 };
 
-function Translate(props: Props): JSX.Element {
+function Translate(props: Props): ReactElement {
   const {
     x = 0,
     y = 0,

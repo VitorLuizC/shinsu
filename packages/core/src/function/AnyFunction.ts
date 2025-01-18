@@ -1,3 +1,1 @@
-type AnyFunction = (...args: any[]) => any;
-
-export default AnyFunction;
+export type AnyFunction = (...args: any[]) => any;

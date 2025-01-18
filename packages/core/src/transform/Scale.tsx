@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import Restore from './Restore';
 import { useRenderInCycle } from '../render';
 
@@ -8,7 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
-function Scale(props: Props): JSX.Element {
+function Scale(props: Props): ReactElement {
   const {
     scaleX = 1,
     scaleY = 1,

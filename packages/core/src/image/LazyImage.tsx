@@ -1,4 +1,4 @@
-import { ComponentProps, lazy, useMemo } from 'react';
+import { type ComponentProps, lazy, type ReactElement, useMemo } from 'react';
 import { fetchSource } from '../source';
 import Image from './Image';
 
@@ -8,7 +8,7 @@ type Props = ImageProps & {
   uri: string;
 };
 
-function LazyImage({ uri, ...props }: Props): JSX.Element {
+function LazyImage({ uri, ...props }: Props): ReactElement {
   const Lazy = useMemo(() => {
     return lazy(async () => {
       const source = await fetchSource(uri, 'image');

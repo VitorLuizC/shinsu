@@ -1,7 +1,8 @@
 import {
   createContext,
   forwardRef,
-  ReactNode,
+  type ReactElement,
+  type ReactNode,
   useCallback,
   useImperativeHandle,
   useLayoutEffect,
@@ -21,7 +22,7 @@ export type Props = {
 
 const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
   // function' keyword was used to prevent 'displayName' assignment.
-  function Canvas(props, ref): JSX.Element {
+  function Canvas(props, ref): ReactElement {
     const {
       width = 640,
       height = 480,
@@ -30,7 +31,7 @@ const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
 
     const identify = useIdentify();
 
-    const canvasRef = useRef<HTMLCanvasElement>();
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     const canvas = canvasRef.current ??= createCanvas({
       id: identify('canvas'),
@@ -39,7 +40,7 @@ const Canvas = forwardRef<CanvasRenderingContext2D, Props>(
       className: 'Canvas__canvas',
     });
 
-    const contextRef = useRef<CanvasRenderingContext2D>();
+    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
 
     const context = contextRef.current ??= createCanvasContext(canvas);
 

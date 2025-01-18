@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type CycleOperation from './CycleOperation';
+import type { CycleOperation } from './CycleOperation';
 
 export type CycleContextValue = Set<CycleOperation>;
 

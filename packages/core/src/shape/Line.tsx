@@ -1,5 +1,5 @@
 import { useRenderInCycle } from '../render';
-import type Color from './Color';
+import type { Color } from './Color';
 
 type Props = {
   toX?: number;

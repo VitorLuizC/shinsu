@@ -1,3 +1,1 @@
-type Color = string | CanvasGradient | CanvasPattern;
-
-export default Color;
+export type Color = string | CanvasGradient | CanvasPattern;
