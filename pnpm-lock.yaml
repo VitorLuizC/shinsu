@@ -13,11 +13,16 @@ importers:
         version: 5.7.3
 
   packages/core:
-    dependencies:
+    devDependencies:
       '@types/node':
         specifier: ^22.10.7
         version: 22.10.7
-    devDependencies:
+      '@types/react':
+        specifier: ^19.0.7
+        version: 19.0.7
+      '@types/react-dom':
+        specifier: ^19.0.3
+        version: 19.0.3(@types/react@19.0.7)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -27,6 +32,15 @@ importers:
       '@shinsu/core':
         specifier: workspace:^
         version: link:../core
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.10.7
+      '@types/react':
+        specifier: ^19.0.7
+        version: 19.0.7
+      '@types/react-dom':
+        specifier: ^19.0.3
+        version: 19.0.3(@types/react@19.0.7)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -49,6 +63,15 @@ importers:
 
   packages/renderer:
     dependencies:
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.10.7
+      '@types/react':
+        specifier: ^19.0.7
+        version: 19.0.7
+      '@types/react-dom':
+        specifier: ^19.0.3
+        version: 19.0.3(@types/react@19.0.7)
       '@types/react-reconciler':
         specifier: ^0.28.9
         version: 0.28.9(@types/react@19.0.7)
@@ -440,6 +463,11 @@ packages:
 
   '@types/node@22.10.7':
     resolution: {integrity: sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==}
+
+  '@types/react-dom@19.0.3':
+    resolution: {integrity: sha512-0Knk+HJiMP/qOZgMyNFamlIjw9OFCsyC2ZbigmEEyXXixgre6IQpm/4V+r3qH4GC1JPvRJKInw+on2rV6YZLeA==}
+    peerDependencies:
+      '@types/react': ^19.0.0
 
   '@types/react-reconciler@0.28.9':
     resolution: {integrity: sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==}
@@ -950,6 +978,10 @@ snapshots:
   '@types/node@22.10.7':
     dependencies:
       undici-types: 6.20.0
+
+  '@types/react-dom@19.0.3(@types/react@19.0.7)':
+    dependencies:
+      '@types/react': 19.0.7
 
   '@types/react-reconciler@0.28.9(@types/react@19.0.7)':
     dependencies:

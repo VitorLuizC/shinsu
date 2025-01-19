@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@shinsu/core": "workspace:^",
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.3"

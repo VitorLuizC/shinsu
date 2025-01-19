@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "@types/react-reconciler": "^0.28.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
