@@ -1,34 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 
+class Radian {
+  static fromDegrees(value: number) {
+    return value * (Math.PI / 180)
+  }
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [angle, setAngle] = useState(0)
+
+  useEffect(() => {
+    const callback = () => setAngle((rotation) => {
+      if (rotation === 360) return 0
+      return rotation + 1
+    });
+    const id = setInterval(callback, 1000/16)
+
+    return () => clearInterval(id)
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <rotate angle={Radian.fromDegrees(angle)}>
+      <rectangle positionX={0} positionY={0} width={100} height={100} />
+    </rotate>
   )
 }
 
